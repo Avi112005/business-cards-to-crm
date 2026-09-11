@@ -1,0 +1,50 @@
+{
+  "name": "business-cards-to-crm",
+  "version": "0.1.0",
+  "description": "Turn photos of business cards into clean, deduped, enriched CRM records. A free AI skill + npx CLI: extract, normalize, dedupe, and export contacts to HubSpot/Salesforce/Notion/CSV.",
+  "type": "module",
+  "bin": {
+    "cards-crm": "bin/cards-crm.js"
+  },
+  "files": [
+    "bin",
+    "src",
+    "schemas",
+    "references",
+    "templates",
+    "SKILL.md",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node --test",
+    "lint": "node scripts/lint.js"
+  },
+  "keywords": [
+    "ai-skill",
+    "claude",
+    "claude-code",
+    "skills",
+    "crm",
+    "business-cards",
+    "contacts",
+    "ocr",
+    "dedupe",
+    "hubspot",
+    "salesforce",
+    "notion"
+  ],
+  "engines": {
+    "node": ">=18.17"
+  },
+  "license": "MIT",
+  "author": "Avi112005",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Avi112005/business-cards-to-crm.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Avi112005/business-cards-to-crm/issues"
+  },
+  "homepage": "https://github.com/Avi112005/business-cards-to-crm#readme"
+}

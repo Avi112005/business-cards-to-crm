@@ -1,0 +1,18 @@
+# Node
+node_modules/
+npm-debug.log*
+
+# Working files produced by the pipeline (anchored to repo root so
+# the committed examples under examples/ are not ignored)
+/records*.jsonl
+/contacts*.csv
+/contacts*.json
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/

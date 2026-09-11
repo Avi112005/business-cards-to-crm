@@ -1,0 +1,8 @@
+# Dev-only files excluded from the npm package.
+# `files` in package.json already whitelists what ships; this is belt-and-suspenders.
+examples/
+docs/
+test/
+scripts/
+.gitignore
+.skillignore

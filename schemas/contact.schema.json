@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Avi112005/business-cards-to-crm/blob/main/schemas/contact.schema.json",
+  "title": "Contact record",
+  "description": "Canonical record produced by the business-cards-to-crm pipeline. One record per unique person (post-dedupe). Raw records share the same shape with emptier fields.",
+  "type": "object",
+  "required": ["id", "source", "name"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Stable identifier, e.g. card-0001. Must be unique after dedupe."
+    },
+    "source": {
+      "type": "string",
+      "description": "Path (or list) to the originating card image(s)."
+    },
+    "name": { "type": "string", "description": "Normalized full name, e.g. 'Avi Singh'." },
+    "name_original": { "type": "string", "description": "Name exactly as printed, e.g. 'AVI SINGH'." },
+    "title": { "type": "string", "description": "Job title as printed, e.g. 'CEO & Founder'." },
+    "title_normalized": {
+      "type": "string",
+      "description": "Expanded/standardized title, e.g. 'Chief Executive Officer & Founder'."
+    },
+    "seniority": {
+      "type": "string",
+      "enum": ["C-level", "VP", "Director", "Manager", "IC", "Other"],
+      "description": "Inferred seniority bucket."
+    },
+    "company": { "type": "string", "description": "Company as printed." },
+    "company_website": { "type": "string", "format": "uri", "description": "Company domain/homepage." },
+    "company_industry": { "type": "string", "description": "Industry, from enrichment." },
+    "company_size": { "type": "string", "description": "Headcount band, from enrichment." },
+    "emails": {
+      "type": "array",
+      "items": { "type": "string", "format": "email" },
+      "description": "Email address(es), lowercased."
+    },
+    "phones": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["raw"],
+        "properties": {
+          "raw": { "type": "string", "description": "Phone as printed." },
+          "e164": { "type": "string", "description": "Normalized E.164, e.g. +14155550100." },
+          "type": { "type": "string", "enum": ["mobile", "landline", "fax", "unknown"] }
+        }
+      }
+    },
+    "website": { "type": "string", "format": "uri", "description": "Personal/other website." },
+    "address": {
+      "type": "object",
+      "properties": {
+        "street": { "type": "string" },
+        "city": { "type": "string" },
+        "region": { "type": "string" },
+        "country": { "type": "string", "description": "ISO 3166-1 alpha-2, e.g. US." },
+        "postal": { "type": "string" }
+      }
+    },
+    "linkedin": { "type": "string", "format": "uri" },
+    "twitter": { "type": "string" },
+    "github": { "type": "string" },
+    "met_at": { "type": "string", "description": "Event/context where the card was collected." },
+    "notes": { "type": "string", "description": "Drafted follow-up/relationship notes." },
+    "tags": { "type": "array", "items": { "type": "string" } },
+    "date_collected": { "type": "string", "format": "date" },
+    "provenance": {
+      "type": "object",
+      "properties": {
+        "extracted_by": { "type": "string", "description": "agent-vision | ocr-tesseract | manual" },
+        "enriched": { "type": "array", "items": { "type": "string" }, "description": "Fields filled by enrichment." },
+        "merged_from": { "type": "array", "items": { "type": "string" }, "description": "IDs merged into this record." },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    }
+  },
+  "additionalProperties": true
+}
