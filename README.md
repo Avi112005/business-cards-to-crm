@@ -6,6 +6,24 @@ Point it at a folder of card photos and get a `contacts.csv` you can import
 straight into HubSpot, Salesforce, or Notion. Free, zero dependencies, no paid
 APIs.
 
+**Live on npm:** `npx business-cards-to-crm` — try it now.
+
+## What you get
+
+**In:** a folder of card photos
+```
+cards/IMG_001.jpg   cards/IMG_002.jpg   ...
+```
+
+**Out:** one clean CSV
+```csv
+Email,First Name,Last Name,Job Title,Company,Phone Number,Website URL,LinkedIn URL
+avi@acme.com,Avi,Singh,CEO & Founder,Acme Inc.,+14155550100,https://www.acme.com,https://linkedin.com/in/avisingh
+```
+
+Duplicates are merged, phones are normalized to E.164 (`415-555-0100` →
+`+14155550100`), and titles are expanded (`CEO` → `Chief Executive Officer`).
+
 ## How it works
 
 1. **Scan** — one empty record per card.
@@ -19,38 +37,47 @@ can be re-run.
 
 ## Install
 
-Requires Node.js 18.17+.
+Requires Node.js 18.17+. Two ways to run — pick one:
+
+**Option A — `npx` (no install).** Prefix every command with
+`npx business-cards-to-crm`:
 
 ```bash
-# no install — run straight from npm
 npx business-cards-to-crm --help
+```
 
-# or install globally
+**Option B — install globally once.** Then use the short `cards-crm` command:
+
+```bash
 npm install -g business-cards-to-crm
 cards-crm --help
 ```
 
-(`cards-crm` is the command name; `business-cards-to-crm` is the package name.)
+> `business-cards-to-crm` is the **package name** (use with npx / npm install);
+> `cards-crm` is the **command name** (only available after a global install).
 
 ## Quick start
 
+Run from the folder that contains your `cards/` directory. Examples use `npx`
+(Option A) — if you installed globally, write `cards-crm` instead.
+
 ```bash
 # 1. Create one record per card in the folder
-cards-crm new cards/ -o records.jsonl
+npx business-cards-to-crm new cards/ -o records.jsonl
 
 # 2. (AI fills in records.jsonl — see "Use it as an AI skill" below)
 
 # 3. Validate
-cards-crm check records.jsonl
+npx business-cards-to-crm check records.jsonl
 
 # 4. Normalize names, phones, titles
-cards-crm normalize records.jsonl -o records.normalized.jsonl
+npx business-cards-to-crm normalize records.jsonl -o records.normalized.jsonl
 
 # 5. Merge duplicates
-cards-crm dedupe records.normalized.jsonl -o records.deduped.jsonl
+npx business-cards-to-crm dedupe records.normalized.jsonl -o records.deduped.jsonl
 
 # 6. Export to your CRM
-cards-crm export records.deduped.jsonl -o contacts.csv --target hubspot
+npx business-cards-to-crm export records.deduped.jsonl -o contacts.csv --target hubspot
 ```
 
 ## Commands
